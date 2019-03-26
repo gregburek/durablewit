@@ -1,32 +1,33 @@
-# Go app template build environment
+# durablewit
 [![Build Status](https://travis-ci.org/gregburek/durablewit.svg?branch=master)](https://travis-ci.org/gregburek/durablewit)
 
-This is a skeleton project for a Go application, which captures the best build
-techniques I have learned to date.  It uses a Makefile to drive the build (the
-universal API to software projects) and a Dockerfile to build a docker image.
+Images found online are not stable archives. Blog redesigns, bot takedowns,
+startup failures and general link rot mean saved links will not resolve when
+you would love them to. Gif link management apps like [gifwit](gifwit.com) at
+least save the images locally, but do not provide a way to re-upload and save
+the new link for immediate or later use.
 
-This has only been tested on Linux, and depends on Docker to build.
+This project:
 
-## Customizing it
+1. Takes a dir of gifwit data with images and gifwit.storedata
+2. Checks for and optionally creates a public S3 bucket to upload images to
+3. Uploads all images in the gifwit db to the S3 bucket
+4. Updates the gifwit db with new, durable links
 
-To use this, simply copy these files and make the following changes:
+After running durablewit, the gifwit db is clean and an archive can be shared
+with other folks or migrated to a new computer, as the links are valid and
+working.
 
-Makefile:
-   - change `BIN` to your binary name
-   - rename `cmd/durablewit` to `cmd/$BIN`
-   - change `REGISTRY` to the Docker registry you want to use
-   - maybe change `SRC_DIRS` if you use some other layout
-   - choose a strategy for `VERSION` values - git tags or manual
+The S3 object names are MD5 hashes of the files, which assist in
+de-duplication.
 
-Dockerfile.in:
-   - maybe change or remove the `USER` if you need
+The durablewit project is written in very bad Go, with a dir and build
+template taken from thockin/go-build-template.
 
-## Go Modules
-
-This assumes the use of go modules (which will be the default for all Go builds
-as of Go 1.13) and vendoring (which reasonable minds might disagree about).
-You will need to run `go mod vendor` to create a `vendor` directory when you
-have dependencies.
+Go was chosen as a learning experience and on the chance that go routine
+concurrency would be a good fit for a stupidly parallel workload, like
+hashing and uploading files. FWIW this code is able to saturate an 100 mbps
+link while uploading files to S3, so (ﾉ･ｪ･)ﾉ
 
 ## Building
 
