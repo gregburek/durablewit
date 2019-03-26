@@ -1,5 +1,5 @@
 # Go app template build environment
-[![Build Status](https://travis-ci.org/thockin/go-build-template.svg?branch=master)](https://travis-ci.org/thockin/go-build-template) 
+[![Build Status](https://travis-ci.org/gregburek/durablewit.svg?branch=master)](https://travis-ci.org/gregburek/durablewit)
 
 This is a skeleton project for a Go application, which captures the best build
 techniques I have learned to date.  It uses a Makefile to drive the build (the
@@ -13,7 +13,7 @@ To use this, simply copy these files and make the following changes:
 
 Makefile:
    - change `BIN` to your binary name
-   - rename `cmd/myapp` to `cmd/$BIN`
+   - rename `cmd/durablewit` to `cmd/$BIN`
    - change `REGISTRY` to the Docker registry you want to use
    - maybe change `SRC_DIRS` if you use some other layout
    - choose a strategy for `VERSION` values - git tags or manual

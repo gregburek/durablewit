@@ -3,7 +3,7 @@ services:
   - docker
 script:
 - make build
-- test -f bin/linux_amd64/myapp
+- test -f bin/linux_amd64/durablewit
 - make all-container
-- docker images | grep "^thockin/myapp.*__linux_amd64"
+- docker images | grep "^gregburek/durablewit.*__linux_amd64"
 - make test
