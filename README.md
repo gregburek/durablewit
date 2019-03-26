@@ -3,7 +3,7 @@
 
 Images found online are not stable archives. Blog redesigns, bot takedowns,
 startup failures and general link rot mean saved links will not resolve when
-you would love them to. GIF link management apps like [gifwit](gifwit.com) at
+you would love them to. GIF link management apps like [gifwit](http://gifwit.com/) at
 least save the images locally, but do not provide a way to re-upload and save
 the new link for immediate or later use.
 
