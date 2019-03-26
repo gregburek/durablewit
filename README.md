@@ -3,7 +3,7 @@
 
 Images found online are not stable archives. Blog redesigns, bot takedowns,
 startup failures and general link rot mean saved links will not resolve when
-you would love them to. Gif link management apps like [gifwit](gifwit.com) at
+you would love them to. GIF link management apps like [gifwit](gifwit.com) at
 least save the images locally, but do not provide a way to re-upload and save
 the new link for immediate or later use.
 
@@ -28,6 +28,8 @@ Go was chosen as a learning experience and on the chance that go routine
 concurrency would be a good fit for a stupidly parallel workload, like
 hashing and uploading files. FWIW this code is able to saturate an 100 mbps
 link while uploading files to S3, so (ﾉ･ｪ･)ﾉ
+
+![Chris Farley: Remember that time I posted that cool GIF and everyone thought I was really funny? Jeff Daniels: Yeah, I remember. CF: That was awesome.](https://durablewit.s3.us-west-2.amazonaws.com/7278f77ccff00330bff7429cdfe17854.gif)
 
 ## Building
 
