@@ -25,9 +25,9 @@ The durablewit project is written in very bad Go, with a dir and build
 template taken from thockin/go-build-template.
 
 Go was chosen as a learning experience and on the chance that go routine
-concurrency would be a good fit for a stupidly parallel workload, like
-hashing and uploading files. FWIW this code is able to saturate an 100 mbps
-link while uploading files to S3, so (ﾉ･ｪ･)ﾉ
+concurrency would be a good fit for a embarrassingly parallel workload, like
+hashing and uploading several GB of files. FWIW this code is able to saturate
+an 100 mbps link while uploading files to S3, so (ﾉ･ｪ･)ﾉ
 
 ![Chris Farley: Remember that time I posted that cool GIF and everyone thought I was really funny? Jeff Daniels: Yeah, I remember. CF: That was awesome.](https://durablewit.s3.us-west-2.amazonaws.com/7278f77ccff00330bff7429cdfe17854.gif)
 
