@@ -31,6 +31,30 @@ an 100 mbps link while uploading files to S3, so (ﾉ･ｪ･)ﾉ
 
 ![Chris Farley: Remember that time I posted that cool GIF and everyone thought I was really funny? Jeff Daniels: Yeah, I remember. CF: That was awesome.](https://durablewit.s3.us-west-2.amazonaws.com/7278f77ccff00330bff7429cdfe17854.gif)
 
+## Running
+
+```bash
+$ bin/durablewit -h
+NAME:
+   durablewit - Make your gifwit library durable by uploading to s3
+
+USAGE:
+   durablewit [global options] command [command options] [arguments...]
+
+VERSION:
+   v0.1
+
+COMMANDS:
+     help, h  Shows a list of commands or help for one command
+
+GLOBAL OPTIONS:
+   --dir value, -d value     gifwit directory path with gifs and gifwit.storedata DB (default: "~/Library/Containers/stevesmith.gifwit/Data/Library/Application Support/stevesmith.gifwitfiles/")
+   --bucket value, -b value  name of bucket to be created and made publicly readable to upload gifs to (default: "durablewit")
+   --region value, -r value  AWS S3 region to use (default: "us-west-2")
+   --help, -h                show help
+   --version, -v             print the version
+```
+
 ## Building
 
 Run `make` or `make build` to compile your app.
