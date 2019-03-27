@@ -22,7 +22,7 @@ The S3 object names are MD5 hashes of the files, which assist in
 de-duplication.
 
 The durablewit project is written in very bad Go, with a dir and build
-template taken from [thockin/go-build-template](https://github.com/thockin/go-build-template).
+template taken partially from [thockin/go-build-template](https://github.com/thockin/go-build-template).
 
 Go was chosen as a learning experience and on the chance that go routine
 concurrency would be a good fit for a embarrassingly parallel workload, like
@@ -33,17 +33,6 @@ an 100 mbps link while uploading files to S3, so (ﾉ･ｪ･)ﾉ
 
 ## Building
 
-Run `make` or `make build` to compile your app.  This will use a Docker image
-to build your app, with the current directory volume-mounted into place.  This
-will store incremental state for the fastest possible build.  Run `make
-all-build` to build for all architectures.
-
-Run `make container` to build the container image.  It will calculate the image
-tag based on the most recent git tag, and whether the repo is "dirty" since
-that tag (see `make version`).  Run `make all-container` to build containers
-for all architectures.
-
-Run `make push` to push the container image to `REGISTRY`.  Run `make all-push`
-to push the container images for all architectures.
+Run `make` or `make build` to compile your app.
 
 Run `make clean` to clean up.

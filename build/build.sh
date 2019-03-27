@@ -38,8 +38,7 @@ export GOOS="${OS}"
 export GO111MODULE=on
 export GOFLAGS="-mod=vendor"
 
-go build                                                        \
+go install                                                        \
     -v                                                          \
     -ldflags "-X $(go list -m)/pkg/version.VERSION=${VERSION}"  \
-    -o ${OUTBIN} \
-    ./cmd/durablewit/main.go
+    ./...
