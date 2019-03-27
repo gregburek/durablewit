@@ -50,6 +50,10 @@ type Gif struct {
 	filename, url, hash, newURL, fullfilename string
 }
 
+var (
+	version string
+)
+
 func s3Uploader(region string) *s3manager.Uploader {
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(region)},
@@ -338,6 +342,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "durablewit"
 	app.Usage = "Make your gifwit library durable by uploading to s3"
+	app.Version = version
 
 	app.Flags = []cli.Flag{
 		cli.StringFlag{

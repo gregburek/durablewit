@@ -40,5 +40,5 @@ export GOFLAGS="-mod=vendor"
 
 go install                                                        \
     -v                                                          \
-    -ldflags "-X $(go list -m)/pkg/version.VERSION=${VERSION}"  \
+    -ldflags "-X main.version=${VERSION}"  \
     ./...
