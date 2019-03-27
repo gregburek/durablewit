@@ -22,7 +22,7 @@ The S3 object names are MD5 hashes of the files, which assist in
 de-duplication.
 
 The durablewit project is written in very bad Go, with a dir and build
-template taken from thockin/go-build-template.
+template taken from [thockin/go-build-template](https://github.com/thockin/go-build-template).
 
 Go was chosen as a learning experience and on the chance that go routine
 concurrency would be a good fit for a embarrassingly parallel workload, like

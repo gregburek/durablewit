@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Copyright 2019 Greg Burek.
 #
@@ -17,6 +17,7 @@
 set -o errexit
 set -o nounset
 set -o pipefail
+set -o xtrace
 
 if [ -z "${OS:-}" ]; then
     echo "OS must be set"
@@ -31,13 +32,14 @@ if [ -z "${VERSION:-}" ]; then
     exit 1
 fi
 
-export CGO_ENABLED=0
+export CGO_ENABLED=1
 export GOARCH="${ARCH}"
 export GOOS="${OS}"
 export GO111MODULE=on
 export GOFLAGS="-mod=vendor"
 
-go install                                                      \
-    -installsuffix "static"                                     \
+go build                                                        \
+    -v                                                          \
     -ldflags "-X $(go list -m)/pkg/version.VERSION=${VERSION}"  \
-    ./...
+    -o ${OUTBIN} \
+    ./cmd/durablewit/main.go

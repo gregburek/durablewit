@@ -189,12 +189,7 @@ func getCannonicalGifwitDir(gifwitDir string) string {
 	return gifwitDir
 }
 
-func openGifwitDb(dbFile, bucket string, c chan Gif) {
-	db, err := sql.Open("sqlite3", dbFile)
-	checkErr(err)
-
-	defer db.Close()
-
+func openGifwitDb(db *sql.DB, bucket string, c chan Gif) {
 	rows, err := db.Query("select Z_PK, ZCACHE_FILE, ZURL from ZIMAGE where ZDOWNLOADED=1 AND ZURL NOT LIKE $1 order by Z_PK", "%"+bucket+"%")
 	checkErr(err)
 
@@ -373,7 +368,7 @@ func main() {
 
 		canonicalGifwitDir := getCannonicalGifwitDir(gifwitDir)
 
-		dbFile := filepath.Join(canonicalGifwitDir, "gifwit.storedata")
+		dbFile := filepath.Join(canonicalGifwitDir, "gifwit.storedata?_busy_timeout=5000")
 
 		hashChan := make(chan Gif, 1000)
 		uploadChan := make(chan Gif, 1000)
@@ -395,9 +390,18 @@ func main() {
 		go cleanUpChan(&uploadwg, saveChan)
 
 		savewg.Add(1)
-		go writeNewURLToGifWit(&savewg, dbFile, saveChan)
 
-		openGifwitDb(dbFile, bucketName, hashChan)
+		pool, err := sql.Open("sqlite3", dbFile)
+		checkErr(err)
+		defer pool.Close()
+
+		pool.SetConnMaxLifetime(0)
+		pool.SetMaxIdleConns(1)
+		pool.SetMaxOpenConns(1)
+
+		go writeNewURLToGifWit(&savewg, pool, saveChan)
+
+		openGifwitDb(pool, bucketName, hashChan)
 
 		savewg.Wait()
 		fmt.Println("Main: Completed")
@@ -416,13 +420,8 @@ func checkErr(err error) {
 	}
 }
 
-func writeNewURLToGifWit(wg *sync.WaitGroup, dbFile string, c chan Gif) {
+func writeNewURLToGifWit(wg *sync.WaitGroup, db *sql.DB, c chan Gif) {
 	defer wg.Done()
-
-	db, err := sql.Open("sqlite3", dbFile)
-	checkErr(err)
-
-	defer db.Close()
 
 	stmt, err := db.Prepare("UPDATE ZIMAGE SET ZURL=? WHERE Z_PK=?")
 	checkErr(err)
